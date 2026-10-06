@@ -26,6 +26,15 @@ const projects = [
     stack: ["Flutter", "Dart", "Android", "Vosk / Sherpa-ONNX"],
     href: "https://github.com/saiharsha2512-tech/iTantra",
     accent: "violet"
+  },
+  {
+    number: "03",
+    title: "VetBridge",
+    category: "FLUTTER APPLICATION",
+    description: "A veterinary chain medical-records application focused on secure records, branch access and streamlined clinical workflows.",
+    stack: ["Flutter", "Dart", "Firebase", "Firestore"],
+    href: "https://github.com/saiharsha2512-tech",
+    accent: "gold"
   }
 ];
 
