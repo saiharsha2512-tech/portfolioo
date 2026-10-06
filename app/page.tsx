@@ -20,21 +20,29 @@ const projects = [
   },
   {
     number: "02",
-    title: "iTantra",
-    category: "OFFLINE-FIRST VOICE COMMUNICATION",
-    description: "A multilingual voice communication app for low-bandwidth settings, with voice alerts and distress messages across Indian languages.",
-    stack: ["Flutter", "Dart", "Android", "Vosk / Sherpa-ONNX"],
-    href: "https://github.com/saiharsha2512-tech/iTantra",
+    title: "VetBridge",
+    category: "FLUTTER APPLICATION",
+    description: "A veterinary chain medical-records application focused on secure records, branch access and streamlined clinical workflows.",
+    stack: ["Flutter", "Dart", "Firebase", "Firestore"],
+    href: "https://github.com/saiharsha2512-tech",
     accent: "violet"
+  },
+  {
+    number: "03",
+    title: "HeavenBus",
+    category: "HACKATHON PRODUCT",
+    description: "A premium real-time bus booking experience with seat holds, contention handling, mock UPI checkout and a boarding-pass-inspired interface.",
+    stack: ["Next.js", "TypeScript", "MongoDB", "UI/UX"],
+    href: "https://github.com/saiharsha2512-tech",
+    accent: "gold"
   }
 ];
 
 const skills = [
-  { name: "Java / DSA / OOP", icon: Code2 },
-  { name: "React / Next.js / JavaScript", icon: Sparkles },
-  { name: "Node.js / Express / REST APIs", icon: Server },
-  { name: "Flutter / Dart / Android", icon: Smartphone },
-  { name: "MongoDB / PostgreSQL / MySQL", icon: Database }
+  { name: "React / Next.js", icon: Code2, level: 88 },
+  { name: "Node / Express", icon: Server, level: 84 },
+  { name: "MongoDB / Mongoose", icon: Database, level: 80 },
+  { name: "Flutter / Dart", icon: Smartphone, level: 72 }
 ];
 
 export default function Home() {
@@ -114,8 +122,8 @@ export default function Home() {
           </motion.h1>
 
           <motion.p className="hero-sub" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .3 }}>
-            I&apos;m <strong>Harsha</strong> — a second-year B.Tech CSE student specializing in Software Product Engineering.
-            I build full-stack and mobile apps, and I&apos;m seeking a software engineering internship.
+            I&apos;m <strong>Harsha</strong> — a Software Product Engineering student and developer
+            who turns ideas into responsive, thoughtful products.
           </motion.p>
 
           <motion.div className="hero-actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .5 }}>
@@ -155,12 +163,12 @@ export default function Home() {
             Curious by default.<br/><span>Builder by choice.</span>
           </motion.div>
           <div className="about-copy">
-            <p>I&apos;m a second-year B.Tech CSE student in Kalvium&apos;s Software Product Engineering program at Kalasalingam University.</p>
-            <p>I build full-stack and mobile applications, practice Java, DSA, OOP and DBMS, and enjoy collaborative, project-based development. I&apos;m looking for an internship where I can contribute to real software and keep growing.</p>
+            <p>I&apos;m a B.Tech CSE student specializing in Software Product Engineering. I enjoy taking an idea from a rough thought to a working, polished product.</p>
+            <p>My current focus is modern web development, full-stack engineering and problem solving. I care about clean interfaces, useful interactions and code that is easy to grow.</p>
             <div className="stats">
-              <div><strong>02</strong><span>Featured projects</span></div>
-              <div><strong>SIH 2026</strong><span>Selected team</span></div>
-              <div><strong>2025–29</strong><span>B.Tech CSE</span></div>
+              <div><strong>7.33</strong><span>Current CGPA</span></div>
+              <div><strong>03+</strong><span>Major Projects</span></div>
+              <div><strong>∞</strong><span>Things to learn</span></div>
             </div>
           </div>
         </div>
@@ -172,7 +180,7 @@ export default function Home() {
           <div className="skill-intro">
             <Sparkles size={25}/>
             <h2>A stack that lets<br/><span>ideas ship.</span></h2>
-            <p>Languages, full-stack tools and mobile development I&apos;ve used in projects and coding practice.</p>
+            <p>From frontend pixels to backend APIs, I&apos;m building a practical full-stack toolkit one project at a time.</p>
           </div>
           <div className="skill-list">
             {skills.map((skill, i) => {
@@ -181,7 +189,8 @@ export default function Home() {
                 <motion.div className="skill-row" key={skill.name} initial={{ opacity: 0, x: 35 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * .1 }}>
                   <div className="skill-icon"><Icon size={21}/></div>
                   <div className="skill-name">{skill.name}</div>
-                  <span className="skill-context">Hands-on</span>
+                  <div className="skill-track"><motion.div className="skill-fill" initial={{ width: 0 }} whileInView={{ width: `${skill.level}%` }} viewport={{ once: true }} transition={{ duration: 1, delay: .2 + i*.1 }}/></div>
+                  <span>{skill.level}%</span>
                 </motion.div>
               );
             })}
@@ -213,7 +222,7 @@ export default function Home() {
           <div className="contact-grid" />
           <span className="eyebrow">04 — CONTACT</span>
           <h2>Have an idea?<br/><span>Let&apos;s build it.</span></h2>
-          <p>I&apos;m seeking a paid software engineering internship to contribute to production work and grow my Java, backend and full-stack skills.</p>
+          <p>I&apos;m looking for internship opportunities where I can learn fast, contribute meaningfully and build real products.</p>
           <a className="primary-btn big" href="mailto:saiharsha2512@gmail.com">Start a conversation <Mail size={18}/></a>
           <div className="socials">
             <a href="https://github.com/saiharsha2512-tech" target="_blank" rel="noreferrer"><Github/> GitHub</a>
