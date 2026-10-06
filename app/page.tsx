@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import {
   ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin, Menu, X,
   Code2, Database, Smartphone, Server, Sparkles, ChevronDown, ArrowUp
@@ -49,10 +49,43 @@ const skills = [
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("home");
+  const [cursorActive, setCursorActive] = useState(false);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
-  const orbY = useTransform(scrollYProgress, [0, 1], [0, 260]);
-  const orbY2 = useTransform(scrollYProgress, [0, 1], [0, -180]);
+
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothPointerX = useSpring(pointerX, { stiffness: 55, damping: 24 });
+  const smoothPointerY = useSpring(pointerY, { stiffness: 55, damping: 24 });
+  const cursorX = useSpring(0, { stiffness: 45, damping: 24 });
+  const cursorY = useSpring(0, { stiffness: 45, damping: 24 });
+  const orbX = useTransform(smoothPointerX, [-1, 1], [-48, 48]);
+  const orbX2 = useTransform(smoothPointerX, [-1, 1], [38, -38]);
+  const orbY = useTransform([scrollYProgress, smoothPointerY], ([scroll, pointer]) => Number(scroll) * 260 + Number(pointer) * 42);
+  const orbY2 = useTransform([scrollYProgress, smoothPointerY], ([scroll, pointer]) => Number(scroll) * -180 - Number(pointer) * 34);
+  const gridX = useTransform(smoothPointerX, [-1, 1], [18, -18]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, -140]);
+
+  useEffect(() => {
+    const onPointerMove = (event: PointerEvent) => {
+      pointerX.set((event.clientX / window.innerWidth - 0.5) * 2);
+      pointerY.set((event.clientY / window.innerHeight - 0.5) * 2);
+      cursorX.set(event.clientX);
+      cursorY.set(event.clientY);
+      setCursorActive(true);
+    };
+    const onPointerLeave = () => {
+      pointerX.set(0);
+      pointerY.set(0);
+      setCursorActive(false);
+    };
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("pointerleave", onPointerLeave);
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerleave", onPointerLeave);
+    };
+  }, [pointerX, pointerY, cursorX, cursorY]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -76,11 +109,17 @@ export default function Home() {
   };
 
   return (
-    <main>
+    <main className="site-shell">
       <motion.div className="scroll-progress" style={{ scaleX: progress }} />
+      <div className="ambient-background" aria-hidden="true">
+        <div className="ambient-wash" />
+        <motion.div className="ambient-grid" style={{ x: gridX, y: gridY }} />
+        <motion.div className="ambient-stars" style={{ x: orbX2, y: orbY2 }} />
+        <motion.div className="ambient-cursor" style={{ x: cursorX, y: cursorY, opacity: cursorActive ? 1 : 0 }} />
+        <motion.div className="floating-orb orb-one" style={{ x: orbX, y: orbY }} />
+        <motion.div className="floating-orb orb-two" style={{ x: orbX2, y: orbY2 }} />
+      </div>
       <div className="noise" />
-      <motion.div className="floating-orb orb-one" style={{ y: orbY }} />
-      <motion.div className="floating-orb orb-two" style={{ y: orbY2 }} />
 
       <nav className="nav">
         <button className="brand" onClick={() => go("home")}>
